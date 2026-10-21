@@ -2,22 +2,19 @@
 
 Go 实现，无第三方库。运行时使用 macOS 自带的 `diskutil`、`plutil` 和 `lsof`。
 
-在项目目录编译：
-
+通常执行：
 ```sh
-cd /Users/dev/codes/o/eject-ssd
-go build -o /tmp/eject-ssd .
+./eject-ssd --diagnose       # 仅检查占用进程，不弹出
+./eject-ssd                  # 自动选择唯一的外接 SSD，安全弹出
 ```
 
-运行：
-
 ```sh
-/tmp/eject-ssd                  # 自动选择唯一的外接 SSD，安全弹出
-/tmp/eject-ssd --list           # 列出外接物理磁盘
-/tmp/eject-ssd --dry-run        # 预览，不弹出
-/tmp/eject-ssd --diagnose       # 仅检查占用进程，不弹出
-/tmp/eject-ssd --disk disk4     # 多块磁盘时，指定整块外接磁盘
-/tmp/eject-ssd --force          # 强制卸载，然后弹出
+./eject-ssd                  # 自动选择唯一的外接 SSD，安全弹出
+./eject-ssd --list           # 列出外接物理磁盘
+./eject-ssd --dry-run        # 预览，不弹出
+./eject-ssd --diagnose       # 仅检查占用进程，不弹出
+./eject-ssd --disk disk4     # 多块磁盘时，指定整块外接磁盘
+./eject-ssd --force          # 强制卸载，然后弹出
 ```
 
 默认调用 macOS `diskutil eject`，由系统卸载整个磁盘的宗卷并弹出。失败时输出系统错误和 `lsof` 占用信息，包括物理盘对应的 APFS 宗卷。
@@ -33,12 +30,12 @@ go build -o /tmp/eject-ssd .
 普通权限下 `lsof` 可能看不到其他用户或系统进程；需要时只提升诊断权限：
 
 ```sh
-sudo /tmp/eject-ssd --diagnose
+sudo ./eject-ssd --diagnose
 ```
 
 工具会把自身工作目录切换到 `/`，但无法改变启动它的终端或其他进程的工作目录。诊断没有列出进程，也不代表磁盘一定没有占用。命令超时或被中断后，需重新检查磁盘状态。
 
-`/tmp` 中的二进制可能被系统清理。需要长期使用时，可手动安装到个人命令目录：
+需要长期使用时，可手动安装到个人命令目录：
 
 ```sh
 mkdir -p "$HOME/.local/bin"
