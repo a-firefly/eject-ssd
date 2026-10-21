@@ -75,7 +75,7 @@ func loadPlist(execute runner, args ...string) (diskData, error) {
 	if err != nil {
 		return data, err
 	}
-	// macOS ships plutil; no third-party Go package or Python is required.
+	// macOS ships plutil; no third-party Go package is required.
 	js, err := execute(xml, "/usr/bin/plutil", "-convert", "json", "-o", "-", "--", "-")
 	if err != nil {
 		return data, err

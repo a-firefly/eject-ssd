@@ -1,6 +1,6 @@
 # macOS 外接 SSD 弹出工具
 
-Go 实现，无第三方库。运行时使用 macOS 自带的 `diskutil`、`plutil` 和 `lsof`，不需要 Python。
+Go 实现，无第三方库。运行时使用 macOS 自带的 `diskutil`、`plutil` 和 `lsof`。
 
 在项目目录编译：
 
