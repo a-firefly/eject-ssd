@@ -1,0 +1,11 @@
+# Go build and test artifacts
+/eject-ssd
+/bin/
+/dist/
+*.test
+*.out
+coverage.xml
+
+# macOS metadata
+.DS_Store
+._*
